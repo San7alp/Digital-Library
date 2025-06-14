@@ -10,4 +10,5 @@ import lombok.*;
 @NoArgsConstructor
 public class IssueData {
     private String Subsstatus;
+    private String date;
 }
