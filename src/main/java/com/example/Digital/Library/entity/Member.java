@@ -1,9 +1,8 @@
 package com.example.Digital.Library.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.Digital.Library.enums.Subscription;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.util.UUID;
@@ -21,9 +20,9 @@ public class Member {
     private String fname;
     private String lname;
     private String mobile;
+    @Email
+    @Column(unique = true)
     private String email;
-    private enum Sstatus{
-        ACTIVE,
-        NOT_ACTIVE
-    }
+
+    private Subscription status=Subscription.INACTIVE;
 }
