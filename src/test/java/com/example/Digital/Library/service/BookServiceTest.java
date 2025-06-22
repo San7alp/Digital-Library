@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
@@ -52,5 +53,11 @@ public class BookServiceTest {
         Mockito.when(br.findAll()).thenReturn(bookList);
         List<Book> fetchedBookList=bs.getAllBooks();
         Assertions.assertEquals(0,fetchedBookList.size());
+    }
+    @Test
+    void getBookById(){
+        Mockito.when(br.findById(book.getId())).thenReturn(Optional.of(book));
+        Book b=this.bs.getBookById(book.getId());
+        Assertions.assertEquals(book,b);
     }
 }
