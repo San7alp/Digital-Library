@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = DigitalLibraryApplication.class )
-public class MyServiceTest {
-    private final MyService myService;
+public class RedisServiceTest {
+    private final RedisService redisService;
     @Autowired
-    public MyServiceTest(MyService myService) {
-        this.myService = myService;
+    public RedisServiceTest(RedisService redisService) {
+        this.redisService = redisService;
     }
 
 
@@ -19,7 +19,7 @@ public class MyServiceTest {
     void divideTwoNumbers_whenInputsAreValidButAisLessThan20() throws Exception{
         int a=10;
         int b=5;
-        double res=this.myService.divideTwoNumbers(a,b);
+        double res=this.redisService.divideTwoNumbers(a,b);
 
         Assertions.assertEquals(0.0,res);
     }
@@ -28,7 +28,7 @@ public class MyServiceTest {
         int a=10;
         int b=0;
         Assertions.assertThrows(Exception.class,()-> {
-            double res = this.myService.divideTwoNumbers(a, b);
+            double res = this.redisService.divideTwoNumbers(a, b);
         });
 
     }
