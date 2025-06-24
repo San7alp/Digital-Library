@@ -18,9 +18,9 @@ public class BookService {
         this.br = br;
     }
     public Book addBook(Book b){
-        log.info("Saving a book");
+
         Book saved= this.br.save(b);
-        log.info("Saved book with id",saved.getId());
+
         return saved;
     }
     public List<Book> getAllBooks(){
