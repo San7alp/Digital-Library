@@ -1,56 +1,78 @@
-package com.example.Digital.Library.security;
-
-import com.example.Digital.Library.service.MyUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.example.Digital.Library.security;//package com.example.Digital.Library.security;
+//
+//import com.example.Digital.Library.service.MyUserDetailsService;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.authentication.ProviderManager;
+//import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+//import org.springframework.security.config.Customizer;
+//import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+//import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.web.SecurityFilterChain;
+//
+//@Configuration
+//@EnableWebSecurity
+//public class SecurityConfig {
+//
+//    private final MyUserDetailsService myUserDetailsService;
+//
+//    @Autowired
+//    public SecurityConfig(MyUserDetailsService myUserDetailsService) {
+//        this.myUserDetailsService = myUserDetailsService;
+//    }
+//
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http.csrf(AbstractHttpConfigurer::disable);
+//        http.authorizeHttpRequests(auth -> auth
+//                .requestMatchers("/book/**").hasAnyRole("MEMBER", "LIBRARIAN")
+//                .requestMatchers("/member/**").hasRole("LIBRARIAN")
+//                .requestMatchers("/public/**","/auth/**").permitAll()
+//                .anyRequest().authenticated());
+//        http.formLogin(Customizer.withDefaults());
+////        http.httpBasic(Customizer.withDefaults());
+//        return http.build();
+////        http.authorizeHttpRequests(auth->auth.anyRequest().permitAll());
+////        return http.build();
+//    }
+//
+//    @Bean
+//    public AuthenticationManager authenticationManager() {
+//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+//        authenticationProvider.setUserDetailsService(this.myUserDetailsService);
+//        authenticationProvider.setPasswordEncoder(this.passwordEncoder());
+//        return new ProviderManager(authenticationProvider);
+//    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return new BCryptPasswordEncoder();
+//    }
+//}
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
-
-    private final MyUserDetailsService myUserDetailsService;
-    @Autowired
-    public SecurityConfig(MyUserDetailsService myUserDetailsService) {
-        this.myUserDetailsService = myUserDetailsService;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable);
-//        http.authorizeHttpRequests(auth -> auth
-//                .requestMatchers("/book/**").hasAnyRole("MEMBER","LIBRARIAN")
-//                .requestMatchers("/member/**").hasRole("LIBRARIAN")
-//                .anyRequest().authenticated())
-//                .formLogin(form->form.loginPage("/login").permitAll())
-//                .logout(LogoutConfigurer::permitAll);
-////        http.httpBasic(Customizer.withDefaults());
-        http.authorizeHttpRequests(auth->auth.anyRequest().permitAll());
+        http
+                .csrf(csrf -> csrf.disable()) // New style
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll() // Allow everything
+                );
         return http.build();
     }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration){
-        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(this.myUserDetailsService);
-        authenticationProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
-        return new ProviderManager(authenticationProvider);
-    }
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 }
+
+

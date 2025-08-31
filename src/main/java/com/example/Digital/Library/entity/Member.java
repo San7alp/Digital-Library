@@ -4,8 +4,8 @@ import com.example.Digital.Library.enums.Subscription;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 import java.util.UUID;
